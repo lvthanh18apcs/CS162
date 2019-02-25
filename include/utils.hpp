@@ -14,8 +14,17 @@ namespace Utils {
             system(("mkdir -p" + path).c_str());
         }
 
-        void openFile(fstream );
+        void openInputFile(ifstream &fin, string path) {
+            fin.open(path);
+            if (!fin.is_open()) 
+        }
+        
+        void openOutputFile(ifstream &fout, string path);
+        
+        void 
+        
         int findNext(string s, int i, char value);
+        
         vector <string> getElement(string s, char value);
     };
 };
