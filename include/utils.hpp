@@ -13,9 +13,6 @@ using namespace std;
 namespace Utils {
     namespace Tool {
         void createFolder(string path);
-        void openInputFile(ifstream &fin, string path);
-        
-        void openOutputFile(ifstream &fout, string path);
         
         int findNext(string s, int i, char value);
         

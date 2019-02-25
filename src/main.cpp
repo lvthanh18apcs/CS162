@@ -1,9 +1,6 @@
-#include <iostream>
-
-void test() {
-	std::cout << "daiohfaoaofna";
-}
+#include <staff.hpp>
 
 int main() {
-	test();
+	Staff::import();
+	return 0;
 }

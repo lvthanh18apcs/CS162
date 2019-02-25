@@ -22,6 +22,7 @@ obj/%.o: src/%.cpp
 dirs:
 	mkdir -p bin	
 	mkdir -p obj
-
+	mkdir -p data/classes
+	mkdir -p data/courses
 clean:
 	rm -f $(OBJECTS)
