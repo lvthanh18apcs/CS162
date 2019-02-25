@@ -22,12 +22,6 @@ obj/%.o: src/%.cpp
 dirs:
 	mkdir -p bin	
 	mkdir -p obj
-	mkdir -p data
-	mkdir -p data/classes
-	mkdir -p data/courses
-	mkdir -p database
-	mkdir -p database/classes
-	mkdir -p database/courses
 
 clean:
 	rm -f $(OBJECTS)
