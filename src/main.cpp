@@ -1,9 +1,9 @@
-#include <iostream>
+//
+//  main.cpp
+//  Student Management
+//
+//  Created by Khoa Nguyen on 2/25/19.
+//  Copyright © 2019 Khoa Nguyen. All rights reserved.
+//
 
-void test() {
-	std::cout << "daiohfaoaofna";
-}
-
-int main() {
-	test();
-}
+#include <stdio.h>
