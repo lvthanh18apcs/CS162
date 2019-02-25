@@ -13,3 +13,4 @@ vector <string> Utils::Tool::getElement(string s, char value) {
     }
     return result;
 }
+
