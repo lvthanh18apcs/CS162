@@ -1,6 +1,10 @@
 #include <utils.hpp>
 
-int Utils::Tool::findNext(string s, int i, int value) {
+void Utils::Tool::createFolder(string path) {
+    system(("mkdir -p " + path).c_str());
+}
+
+int Utils::Tool::findNext(string s, int i, char value) {
     return find(s.begin() + i, s.end(), value) - s.begin();
 }
 
@@ -13,4 +17,3 @@ vector <string> Utils::Tool::getElement(string s, char value) {
     }
     return result;
 }
-

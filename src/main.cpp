@@ -1,9 +1,7 @@
-//
-//  main.cpp
-//  Student Management
-//
-//  Created by Khoa Nguyen on 2/25/19.
-//  Copyright © 2019 Khoa Nguyen. All rights reserved.
-//
+#include <staff.hpp>
 
-#include <stdio.h>
+int main() {
+	Staff::import();
+	return 0;
+}
+
