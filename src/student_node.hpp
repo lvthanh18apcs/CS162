@@ -10,6 +10,7 @@
 #define student_node_hpp
 
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include <fstream>
 
@@ -19,23 +20,25 @@ class StudentNode {
 public :
     StudentNode() {};
     
+    StudentNode(int ID, string firstname, string lastname, string gender, string DoB, string classtmp);
+    
     void editSave();
     
     void editID (int newID);
     
-    void editfirstname (string newfirstname);
+    void editfirstname();
     
-    void editlastname (string newlastname);
+    void editlastname();
     
-    void editgender (string newgender);
+    void editgender();
     
-    void editDoB (string newDoB);
+    void editDoB();
     
     void classAdd();
     
     void classRemove();
     
-    void classChange(string newclass);
+    void classChange();
 private :
     int ID;
     string firstname;

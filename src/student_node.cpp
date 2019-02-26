@@ -7,35 +7,53 @@
 //
 
 #include "student_node.hpp"
+
+StudentNode::StudentNode(int ID, string firstname, string lastname, string gender, string DoB, string classtmp) {
+    this -> ID = ID;
+    this -> firstname = firstname;
+    this -> lastname = lastname;
+    this -> gender = gender;
+    this -> DoB = DoB;
+    this -> classtmp = classtmp;
+}
+
 void StudentNode::editSave() {
     ofstream fileOutput;
-    fileOutput.open("data/classes" + classtmp +  "/" + to_string(ID) + ".txt");
+    fileOutput.open("data/classes/" + classtmp +  "/" + to_string(ID) + ".txt");
     
-    fileOutput << firstname << endl;
-    fileOutput << lastname << endl;
-    fileOutput << gender << endl;
-    fileOutput << DoB << endl;
+    if (!fileOutput.is_open())
+        cout << "Cannot load the data!" << endl;
+    else {
+        fileOutput << firstname << endl;
+        fileOutput << lastname << endl;
+        fileOutput << gender << endl;
+        fileOutput << DoB << endl;
+    }
     
     fileOutput.close();
 }
 
-void StudentNode::editfirstname(string newfirstname) {
-    firstname = newfirstname;
+void StudentNode::editfirstname() {
+    cin >> firstname;
+    //firstname = newfirstname;
     editSave();
 }
 
-void StudentNode::editlastname(string newlastname) {
-    lastname = newlastname;
+void StudentNode::editlastname() {
+    cin >> lastname;
+    //lastname = newlastname;
     editSave();
 }
 
-void StudentNode::editgender(string newgender) {
-    gender = newgender;
+void StudentNode::editgender() {
+    cin >> gender;
+    //gender = newgender;
     editSave();
 }
 
-void StudentNode::editDoB(string newDoB) {
-    DoB = newDoB;
+void StudentNode::editDoB() {
+    cin >> DoB;
+    //DoB = newDoB;
     editSave();
 }
 
@@ -44,9 +62,17 @@ void StudentNode::classAdd() {
 }
 
 void StudentNode::classRemove() {
-    system(("rm -f data/classes" + classtmp +  "/" + to_string(ID) + ".txt").c_str());
+    if (remove(("data/classes/" + classtmp +  "/" + to_string(ID) + ".txt").c_str()) != 0)
+        cout << "Not exist this student!" << endl;
+    else
+        cout << "Deleted successfully!" << endl;
+    
 }
 
-void StudentNode::classChange(string newclass) {
-    
+void StudentNode::classChange() {
+    string newclass;
+    cin >> newclass;
+    classRemove();
+    classtmp = newclass;
+    editSave();
 }

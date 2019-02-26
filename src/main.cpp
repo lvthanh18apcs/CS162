@@ -7,3 +7,20 @@
 //
 
 #include <stdio.h>
+#include "student_node.hpp"
+
+
+int main() {
+    cout << "hell\n";
+    StudentNode a(18125037,"Nguyen","Khoa","Male","01-01-2000","18CLC1");
+    
+    //a.editfirstname();
+    
+    //a.classRemove();
+    
+    //a.classAdd();
+    
+    a.classChange();
+    
+    return 0;
+}
