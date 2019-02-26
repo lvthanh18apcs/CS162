@@ -1,0 +1,6 @@
+No,Course ID,Course Name,Lecturer Account,Start Date,End Date,Day of Week,Start Hour,End Hour,Room
+1,CS111,Introduction to Coding,comp,9-9-2000,12-12-2000,Mon,8,11,I41
+2,PH111,General Physics 111,phy,9-9-2000,12-12-2000,Tue,14,17,I42
+3,MTH111,Calculus 111,math,9-9-2000,12-12-2000,Wed,8,11,I43
+4,CM111,Communication Management 111,cm1,9-9-2000,12-12-2000,Thur,14,17,I44
+5,AI111,Introduction to AI,abc,9-9-2000,12-12-2000,Fri,8,11,B11A
