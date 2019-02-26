@@ -13,11 +13,11 @@ namespace Staff {
     void import();
 
     namespace Classes {
-        void import(string path, string name);
+        void import(string, string);
     };
     
     namespace Courses {
-        void import(string path, string name);
+        void import(string, string);
     }
 };
 

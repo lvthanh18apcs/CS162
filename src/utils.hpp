@@ -14,6 +14,8 @@ namespace Utils {
     namespace Tool {
         void createFolder(string path);
         
+        string createFolder(string init, string raw);
+        
         int findNext(string s, int i, char value);
         
         vector <string> getElement(string s, char value);

@@ -1,0 +1,6 @@
+No,Course ID,Course Name,Class,LecturerAccount,Start Date,End Date,Day of Week,Start Hour,End Hour,Room
+1,CS122,Introduce to newone,18CLC1,new,12-11-2000,12-12-2000,Web,9:30,11:00,I41
+2,MTH222,General Physic,18CLC1,phys,12-11-2000,12-12-2000,Mon,07:30,9:00
+3,PH111,General Math,18CLC1,math,12-11-2000,12-12-2000,Tue,07:30,9:00
+4,CL303,General Chemistry,18CLC1,chem,12-11-2000,12-12-2000,Thu,07:30,9:00
+5,AB103,General Literature,18CLC1,lite,12-11-2000,12-12-2000,Fri,07:30,9:00
