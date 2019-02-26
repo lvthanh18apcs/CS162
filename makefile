@@ -17,7 +17,7 @@ $(EXE): $(OBJECTS)
 	$(CC) $(OBJECTS) -g -o bin/$(EXE) $(LINKER_FLAGS) $(INCLUDEDIR) $(COMPILER_FLAGS)
 
 obj/%.o: src/%.cpp
-	$(CC) $(COMPILER_FLAGS) $< -g -c -o $@ $(INCLUDEDIR)
+	$(CC) $< -g -c -o $@ $(INCLUDEDIR) $(COMPILER_FLAGS)
 
 dirs:
 	mkdir -p bin	
