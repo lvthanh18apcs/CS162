@@ -1,7 +1,11 @@
-#include <staff.hpp>
+#include <global.hpp>
 
 int main() {
-	Staff::import();
+	
+	Global::load();
+	Global::process();
+	Global::finish();
+
 	return 0;
 }
 
