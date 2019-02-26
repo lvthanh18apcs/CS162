@@ -52,7 +52,23 @@ rectangle Graphic::Windows::subcomps[11][11];
 
 void Graphic::Windows::init() {
     // main window
-    windows[MAIN_WINDOW][]
+    windows[MAIN_WINDOW].set(0, 0, LINES, COLS);
+    subcomps[MAIN_WINDOW][TITLE].set(windows[MAIN_WINDOW].bottom() / 2 - title.size(), 
+                                    windows[MAIN_WINDOW].right() / 2 - title[0].size() / 2,
+                                    title.size() + 2, title[0].size());
+    subcomps[MAIN_WINDOW][LOGIN_BUTTON].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3, 
+                                            windows[MAIN_WINDOW].right() / 2 - 2,
+                                            3, 9);
+    subcomps[MAIN_WINDOW][ABOUT_BUTTON].set(subcomps[MAIN_WINDOW][LOGIN_BUTTON].bottom() + 2,
+                                            subcomps[MAIN_WINDOW][LOGIN_BUTTON].left(),
+                                            3, 9);
+    //login window
+    
+    //student main window
+
+    //lecturer main window
+
+    //staff main window
 }
 
 void Graphic::Windows::load() {
@@ -64,6 +80,8 @@ void Graphic::Windows::clear(int x, int y, int h, int w) {
         mvaddch(x + i, y + j, ' ');
     refresh();
 }
+
+void Graphic::
 
 void Graphic::Windows::LoginWindow() {
 
