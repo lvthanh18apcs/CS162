@@ -81,3 +81,11 @@ void Staff::Courses::import(string path, string raw) {
         
     }  
 }
+
+vector <string> Staff::Classes::getClassList() {
+
+}
+
+vector <string> Staff::Classes::getStudentListOf() {
+
+}

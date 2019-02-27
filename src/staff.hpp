@@ -2,6 +2,7 @@
 #define STAFF_H_DEFINED
 
 #include <string>
+#include <vector>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -14,6 +15,10 @@ namespace Staff {
 
     namespace Classes {
         void import(string, string);
+
+        vector <string> getClassList();
+
+        vector <string> getStudentListOf(string classtmp);
     };
     
     namespace Courses {

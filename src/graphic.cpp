@@ -47,7 +47,7 @@ const std::vector < std::string > title = {
     "student managerment"
 };
 
-const std::vector < std::vector < std::string> > comps {
+std::vector < std::vector < std::string> > comps {
     { //main window
         "          LOGIN          ",
         "          ABOUT          "
@@ -61,10 +61,14 @@ const std::vector < std::vector < std::string> > comps {
     { // lecturer window
 
     },
-    { // staff window
+    { // staff main window
         "      Class Manager      ",
         "      Course Manager     ",
         "    Scoreboard Manager   "
+    },
+    { //staff class manager window
+    },
+    { //staff course manager window
     }
 };
 
@@ -98,6 +102,10 @@ void Graphic::Windows::init() {
     subcomps[STAFF_WINDOW][STAFF_SCOREBOARD_BUTTON].set(subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].bottom() + 1,
                                                     subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].left(),
                                                     3, 27);
+    subcomps[STAFF_WINDOW][STAFF_CLASS_WINDOW].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3,
+                                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 21,
+                                                    30, 43);
+                                                    
 }
 
 void Graphic::Windows::load() {
@@ -197,7 +205,12 @@ void Graphic::Windows::StaffClassManager() {
         subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
         subcomps[MAIN_WINDOW][FRAMES].width() - 2);
 
-    int currentPtr = 0;
+    
+    subcomps[STAFF_WINDOW][STAFF_CLASS_WINDOW].drawEdges();
+    refresh();
+    std::vector < std::string>  &cur = comps[STAFF_CLASS_WINDOW];
+    cur = Staff::Class::getList();
+
 }
 
 void Graphic::Windows::StaffCourseManager() {

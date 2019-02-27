@@ -6,14 +6,17 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include <functional>
+
+#include <staff.hpp>
 
 enum WINDOWS {
     MAIN_WINDOW,
     LOGIN_WINDOW,
     STUDENT_WINDOW,
     LECTURER_WINDOW,
-    STAFF_WINDOW
+    STAFF_WINDOW,
+    STAFF_CLASS_WINDOW,
+    STAFF_COURSE_WINDOW
 };
 
 enum MAINWINDOW {
@@ -45,7 +48,7 @@ enum LECTURERWINDOW {
 enum STAFFWINDOW {
     CLASS_MANAGER_BUTTON,
     COURSE_MANAGER_BUTTON,
-    STAFF_SCOREBOARD_BUTTON
+    STAFF_SCOREBOARD_BUTTON,
 };
 
 enum LECTURER_COURSE_WINDOW {
