@@ -7,3 +7,10 @@
 //
 
 #include <stdio.h>
+#include "student_node.hpp"
+
+int main() {
+    classDisplay();
+    
+    return 0;
+}

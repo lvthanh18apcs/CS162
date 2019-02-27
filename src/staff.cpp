@@ -42,16 +42,19 @@ void Staff::Classes::import(string path, string class_name) {
     }
 
     string s; getline(fin, s);
+    ofstream fileout("data/classes/" + class_name + "_list.txt");
     while (getline(fin, s)) {
         vector <string> cur = Utils::Tool::getElement(s + ",", ','); 
         //No[0], Student ID[1], Last name[2], First name[3], gender[4], DoB[5]
         
         ofstream fout("data/classes/" + class_name + "/" + cur[1] + ".txt");
+        fileout << cur[2] << "\n";
         fout << cur[2] << "\n" << cur[3] << "\n" << cur[4] << "\n";
         vector <string> dob = Utils::Tool::getElement(cur[5] + "-", '-');
         fout << dob[2] << "-" << dob[1] << "-" << dob[0] << endl;
         fout.close();
     }
+    fileout.close();
     fin.close();
 }
 

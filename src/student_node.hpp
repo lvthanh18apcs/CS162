@@ -13,14 +13,18 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <iomanip>
 
 using namespace std;
 
 class StudentNode {
 public :
-    StudentNode() {};
+    StudentNode();
     
     StudentNode(int ID, string firstname, string lastname, string gender, string DoB, string classtmp);
+    
+    void infoImport();
     
     void editSave();
     
@@ -49,6 +53,6 @@ private :
     
 };
 
-
+void classDisplay();
 
 #endif /* student_node_hpp */
