@@ -44,24 +44,44 @@ void Graphic::load() {
 /*      *       *       *       *       Windows       *       *       *       *       */
 
 const std::vector < std::string > title = {
-
+    "student managerment"
 };
 
-rectangle Graphic::Windows::windows[11];
+const std::vector < std::vector < std::string> > comps {
+    { //main window
+        "          LOGIN          ",
+        "          ABOUT          "
+    },
+    { // login window
+
+    },
+    { // student window
+        
+    },
+    { // lecturer window
+
+    },
+    { // staff window
+        "      Class Manager      ",
+        "      Course Manager     ",
+        "    Scoreboard Manager   "
+    }
+};
+
 rectangle Graphic::Windows::subcomps[11][11];
 
 void Graphic::Windows::init() {
     // main window
-    windows[MAIN_WINDOW].set(0, 0, LINES, COLS);
-    subcomps[MAIN_WINDOW][TITLE].set(windows[MAIN_WINDOW].bottom() / 2 - title.size(), 
-                                    windows[MAIN_WINDOW].right() / 2 - title[0].size() / 2,
-                                    title.size() + 2, title[0].size());
+    subcomps[MAIN_WINDOW][FRAMES].set(0, 0, LINES, COLS);
+    subcomps[MAIN_WINDOW][TITLE].set(subcomps[MAIN_WINDOW][FRAMES].bottom() / 4.5, 
+                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - title[0].size() / 2,
+                                    title.size() + 1, title[0].size());
     subcomps[MAIN_WINDOW][LOGIN_BUTTON].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3, 
-                                            windows[MAIN_WINDOW].right() / 2 - 2,
-                                            3, 9);
-    subcomps[MAIN_WINDOW][ABOUT_BUTTON].set(subcomps[MAIN_WINDOW][LOGIN_BUTTON].bottom() + 2,
+                                            subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 15,
+                                            3, 27);
+    subcomps[MAIN_WINDOW][ABOUT_BUTTON].set(subcomps[MAIN_WINDOW][LOGIN_BUTTON].bottom() + 1,
                                             subcomps[MAIN_WINDOW][LOGIN_BUTTON].left(),
-                                            3, 9);
+                                            3, 27);
     //login window
     
     //student main window
@@ -69,10 +89,19 @@ void Graphic::Windows::init() {
     //lecturer main window
 
     //staff main window
+    subcomps[STAFF_WINDOW][CLASS_MANAGER_BUTTON].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3,
+                                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 15,
+                                                    3, 27);
+    subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].set(subcomps[STAFF_WINDOW][CLASS_MANAGER_BUTTON].bottom() + 1,
+                                                    subcomps[STAFF_WINDOW][CLASS_MANAGER_BUTTON].left(),
+                                                    3, 27);
+    subcomps[STAFF_WINDOW][STAFF_SCOREBOARD_BUTTON].set(subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].bottom() + 1,
+                                                    subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].left(),
+                                                    3, 27);
 }
 
 void Graphic::Windows::load() {
-    refresh();
+    StaffWindow();
 }
 
 void Graphic::Windows::clear(int x, int y, int h, int w) {
@@ -81,9 +110,51 @@ void Graphic::Windows::clear(int x, int y, int h, int w) {
     refresh();
 }
 
-void Graphic::
+void Graphic::Windows::updateptr(int curWin, int curPtr, int stat, int end) {
+    for (int i = stat; i < end; ++i) {
+        subcomps[curWin][i].drawEdges();
+        
+        if (curPtr == i - stat) Color::reverseOn();
+        mvprintw(subcomps[curWin][i].top() + 1, subcomps[curWin][i].left() + 1, "%s", comps[curWin][i - stat].c_str());
+        if (curPtr == i - stat) Color::reverseOff();
+    }
+    refresh();
+}
+
+void Graphic::Windows::MainWindow() {
+    clear(subcomps[MAIN_WINDOW][FRAMES].top() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].height() - 2, 
+        subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+
+    subcomps[MAIN_WINDOW][FRAMES].drawEdges();
+
+    for (int i = 0; i < title.size(); ++i)
+        for (int j = 0; j < title[i].size(); ++j)
+            mvaddch(subcomps[MAIN_WINDOW][TITLE].top() + i, subcomps[MAIN_WINDOW][TITLE].left() + j, title[i][j]);
+
+    int currentPtr = 0;
+
+    while (true) {
+        int input = getch();
+        if (input == 'q' || input == 'Q') {
+            break;
+        }
+        if (input == KEY_UP || input == KEY_DOWN) {
+            currentPtr = (currentPtr + 1) % 2;
+        } else if (input == '\n' || input == ' ') {
+            if (currentPtr == 0) LoginWindow();
+            else AboutWindow();
+        }
+        updateptr(MAIN_WINDOW, currentPtr, LOGIN_BUTTON, sizeof(MAINWINDOW));
+    }
+}
 
 void Graphic::Windows::LoginWindow() {
+
+}
+
+void Graphic::Windows::AboutWindow() {
 
 }
 
@@ -96,6 +167,44 @@ void Graphic::Windows::LecturerWindow() {
 }
 
 void Graphic::Windows::StaffWindow() {
+    clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+        subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+
+    int currentPtr = 0;
+    while (true) {
+        int input = getch();
+        if (input == 'b' || input == 'B') { // back to main window
+            break;
+        }
+        if (input == KEY_DOWN) {
+            currentPtr = (currentPtr + 1) % 3;
+        } else if (input == KEY_UP) {
+            currentPtr = (currentPtr - 1 + 3) % 3;
+        } else if (input == '\n' || input == ' ') {
+            if (currentPtr == 0) StaffClassManager();
+            else if (currentPtr == 1) StaffCourseManager();
+            else StaffScoreboardManager();
+        }
+        updateptr(STAFF_WINDOW, currentPtr, 0, 3);
+    }
+}
+
+void Graphic::Windows::StaffClassManager() {
+    clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+        subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+
+    int currentPtr = 0;
+}
+
+void Graphic::Windows::StaffCourseManager() {
+
+}
+
+void Graphic::Windows::StaffScoreboardManager() {
 
 }
 

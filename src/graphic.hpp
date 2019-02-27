@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <functional>
 
 enum WINDOWS {
     MAIN_WINDOW,
@@ -15,7 +16,8 @@ enum WINDOWS {
     STAFF_WINDOW
 };
 
-enum MAIN_WINDOW {
+enum MAINWINDOW {
+    FRAMES,
     TITLE,
     LOGIN_BUTTON,
     ABOUT_BUTTON
@@ -37,7 +39,7 @@ enum STUDENTWINDOW {
 
 enum LECTURERWINDOW {
     LECTURER_PROFILE_BUTTON,
-    COURSE_WINDOW,
+    COURSE_WINDOW
 };
 
 enum STAFFWINDOW {
@@ -100,22 +102,28 @@ struct rectangle {
 
 namespace Graphic {
     namespace Windows {
-        extern rectangle windows[11];
         extern rectangle subcomps[11][11];
         
         void init();
         
         void load();
 
-        void clear(int x, int y, int h, int w);
-        
+        void clear(int, int, int, int);
+
+        void updateptr(int, int, int, int);
+
+        void MainWindow();
         void LoginWindow();
+        void AboutWindow();
 
         void StudentWindow();
 
         void LecturerWindow();
 
         void StaffWindow();
+        void StaffClassManager();
+        void StaffCourseManager();
+        void StaffScoreboardManager();
     };
 
     namespace Color {
