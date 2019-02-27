@@ -48,5 +48,6 @@ void StudentNode::classRemove() {
 }
 
 void StudentNode::classChange(string newclass) {
-    
+    system(("mv data/classes/" + this->classtmp + "/" + to_string(this->ID) + ".txt data/classes/" + newclass + "/" + to_string(ID) + ".txt").c_str());
+    this->classtmp = newclass;
 }
