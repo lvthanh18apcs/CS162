@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //
 //  main.cpp
 //  Student Management
@@ -13,4 +14,15 @@ int main() {
     classDisplay();
     
     return 0;
+=======
+#include <global.hpp>
+
+int main() {
+	
+	Global::load();
+	Global::process();
+	Global::finish();
+
+	return 0;
+>>>>>>> san-test
 }
