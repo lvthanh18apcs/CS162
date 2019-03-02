@@ -26,7 +26,7 @@ void StudentNode::infoImport() {
     
     // After having ID and Class, access to the txt of that information and read the remaining infor
     ifstream fileInput;
-    fileInput.open("data/classes/" + classtmp +  "/" + to_string(ID) + ".txt");
+    fileInput.open("data/classes/" + classtmp +  "/" + to_string(ID));
     
     if (!fileInput.is_open())
         cout << "This student does not exist" << endl;
@@ -43,7 +43,7 @@ void StudentNode::infoImport() {
 //After editing infor of a student, write down it into that or a new txt whose name is "ID".txt
 void StudentNode::editSave() {
     ofstream fileOutput;
-    fileOutput.open("data/classes/" + classtmp +  "/" + to_string(ID) + ".txt");
+    fileOutput.open("data/classes/" + classtmp +  "/" + to_string(ID));
     
     if (!fileOutput.is_open())
         cout << "Cannot load the data!" << endl;
@@ -86,7 +86,7 @@ void StudentNode::classAdd() {
 }
 
 void StudentNode::classRemove() {
-    if (remove(("data/classes/" + classtmp +  "/" + to_string(ID) + ".txt").c_str()) != 0)
+    if (remove(("data/classes/" + classtmp +  "/" + to_string(ID)).c_str()) != 0)
         cout << "Not exist this student!" << endl;
     else
         cout << "Deleted successfully!" << endl;
@@ -104,7 +104,7 @@ void StudentNode::classChange() {
 }
 
 void classDisplay() {
-    ifstream fin("data/classes_list.txt");
+    ifstream fin("data/classes_list");
     
     if (!fin.is_open())
         cout << "There is no class!\n";
@@ -130,7 +130,7 @@ void classDisplay() {
         else {
             cout << "\n" << setw(3) << "No" << setw(15) << "Last name" << setw(15) << "First name" << setw(15) << "Gender" << setw(20) << "Date of birth" << endl;
             
-            ifstream fileInput("data/classes/" + classes[input-1] + "_list.txt");
+            ifstream fileInput("data/classes/" + classes[input-1] + "_list");
             
             if (!fileInput.is_open())
                 cout << "The class is not available!\n";
@@ -145,7 +145,7 @@ void classDisplay() {
                 for (int i = 0; i <= IDtmp.size()-1; ++i) {
                     //cout << IDtmp[i] << endl << endl;
                     
-                    ifstream studentInput("data/classes/" + classes[input-1] + "/" + to_string(IDtmp[i]) + ".txt");
+                    ifstream studentInput("data/classes/" + classes[input-1] + "/" + to_string(IDtmp[i]));
                     
                     vector <string> studentInfo;
                     string studentInfoSub;
