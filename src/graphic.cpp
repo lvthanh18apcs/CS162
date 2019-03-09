@@ -103,9 +103,11 @@ void Graphic::Windows::init() {
                                                     subcomps[STAFF_WINDOW][COURSE_MANAGER_BUTTON].left(),
                                                     3, 27);
     subcomps[STAFF_WINDOW][STAFF_CLASS_WINDOW].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3,
-                                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 21,
-                                                    30, 43);
-                                                    
+                                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 11,
+                                                    20, 23);
+    subcomps[STAFF_WINDOW][STAFF_COURSE_WINDOW].set(subcomps[MAIN_WINDOW][TITLE].bottom() + 3,
+                                                    subcomps[MAIN_WINDOW][FRAMES].right() / 2 - 11,
+                                                    20, 23);
 }
 
 void Graphic::Windows::load() {
@@ -118,13 +120,25 @@ void Graphic::Windows::clear(int x, int y, int h, int w) {
     refresh();
 }
 
-void Graphic::Windows::updateptr(int curWin, int curPtr, int stat, int end) {
-    for (int i = stat; i < end; ++i) {
-        subcomps[curWin][i].drawEdges();
-        
-        if (curPtr == i - stat) Color::reverseOn();
-        mvprintw(subcomps[curWin][i].top() + 1, subcomps[curWin][i].left() + 1, "%s", comps[curWin][i - stat].c_str());
-        if (curPtr == i - stat) Color::reverseOff();
+void Graphic::Windows::updateptr(int curWin, int curPtr, int stat, int end, int flag, int subWin) {
+    if (!flag) {
+        for (int i = stat; i < end; ++i) {
+            subcomps[curWin][i].drawEdges();
+            
+            if (curPtr == i - stat) Color::reverseOn();
+            mvprintw(subcomps[curWin][i].top() + 1, subcomps[curWin][i].left() + 1, "%s", comps[curWin][i - stat].c_str());
+            if (curPtr == i - stat) Color::reverseOff();
+        }
+    } else {
+        int x = subcomps[curWin][subWin].top() + 2;
+        int y = subcomps[curWin][subWin].left() + (subcomps[curWin][subWin].width() / 2) - comps[subWin][0].size() + 3;
+        for (int i = stat; i < end; ++i) {
+            if (curPtr == i - stat) Color::reverseOn();
+            for (int k = subcomps[curWin][subWin].left() + 1; k < subcomps[curWin][subWin].right(); ++k)
+                mvaddch(x + i, k, ' ');
+            mvprintw(x + i, y, "%s", comps[subWin][i - stat].c_str());
+            if (curPtr == i - stat) Color::reverseOff();
+        }
     }
     refresh();
 }
@@ -179,12 +193,12 @@ void Graphic::Windows::StaffWindow() {
         subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
         subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
         subcomps[MAIN_WINDOW][FRAMES].width() - 2);
-
+    
     int currentPtr = 0;
     while (true) {
         int input = getch();
         if (input == 'b' || input == 'B') { // back to main window
-            break;
+            return;
         }
         if (input == KEY_DOWN) {
             currentPtr = (currentPtr + 1) % 3;
@@ -194,6 +208,12 @@ void Graphic::Windows::StaffWindow() {
             if (currentPtr == 0) StaffClassManager();
             else if (currentPtr == 1) StaffCourseManager();
             else StaffScoreboardManager();
+            
+            clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+                subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+    
         }
         updateptr(STAFF_WINDOW, currentPtr, 0, 3);
     }
@@ -204,24 +224,58 @@ void Graphic::Windows::StaffClassManager() {
         subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
         subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
         subcomps[MAIN_WINDOW][FRAMES].width() - 2);
-
     
     subcomps[STAFF_WINDOW][STAFF_CLASS_WINDOW].drawEdges();
-    refresh();
-    std::vector < std::string>  &cur = comps[STAFF_CLASS_WINDOW];
-    cur = Staff::Class::getList();
-
+    
+    comps[STAFF_CLASS_WINDOW] = Staff::Classes::getClassList();
+    int currentPtr = 0;
+    while (true) {
+        int input = getch();
+        if (input == 'b' || input == 'B') return;
+        if (input == KEY_DOWN) {
+            currentPtr = (currentPtr + 1) % comps[STAFF_CLASS_WINDOW].size();
+        } else if (input == KEY_UP) {
+            currentPtr = (currentPtr - 1 + comps[STAFF_CLASS_WINDOW].size()) % comps[STAFF_CLASS_WINDOW].size();
+        } else if (input == '\n' || input == ' ') {
+            clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+                subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+        }
+        updateptr(STAFF_WINDOW, currentPtr, 0, comps[STAFF_CLASS_WINDOW].size(), 1, STAFF_CLASS_WINDOW);
+    }
 }
 
 void Graphic::Windows::StaffCourseManager() {
-
+    clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+        subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+        subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+    
+    subcomps[STAFF_WINDOW][STAFF_COURSE_WINDOW].drawEdges();
+    int currentPtr = 0;
+    while (true) {
+        int input = getch();
+        if (input == 'b' || input == 'B') return;
+        if (input == KEY_DOWN) {
+            currentPtr = (currentPtr + 1) % comps[STAFF_COURSE_WINDOW].size();
+        } else if (input == KEY_UP) {
+            currentPtr = (currentPtr - 1 + comps[STAFF_COURSE_WINDOW].size()) % comps[STAFF_COURSE_WINDOW].size();
+        } else if (input == '\n' || input == ' ') {
+            clear(subcomps[MAIN_WINDOW][TITLE].top() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].left() + 1, 
+                subcomps[MAIN_WINDOW][FRAMES].bottom() - subcomps[MAIN_WINDOW][TITLE].bottom() - 1, 
+                subcomps[MAIN_WINDOW][FRAMES].width() - 2);
+        }
+        updateptr(STAFF_WINDOW, currentPtr, 0, comps[STAFF_COURSE_WINDOW].size(), 1, STAFF_COURSE_WINDOW);
+    }
 }
 
 void Graphic::Windows::StaffScoreboardManager() {
 
 }
 
-/*      *       *       *       *       Color       *       *       *       *       */
+/*       *       *       *       *       Color       *       *       *       *       */
 
 int Graphic::Color::currentBackgroundColor;
 int Graphic::Color::colors[2][5];

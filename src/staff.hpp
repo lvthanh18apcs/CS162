@@ -1,6 +1,9 @@
 #ifndef STAFF_H_DEFINED
 #define STAFF_H_DEFINED
 
+#include <dirent.h>
+#include <sys/types.h>
+
 #include <string>
 #include <vector>
 #include <cstdlib>

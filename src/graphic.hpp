@@ -113,7 +113,7 @@ namespace Graphic {
 
         void clear(int, int, int, int);
 
-        void updateptr(int, int, int, int);
+        void updateptr(int, int, int, int, int flag = 0, int subWin = 0);
 
         void MainWindow();
         void LoginWindow();

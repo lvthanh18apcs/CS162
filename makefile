@@ -8,7 +8,7 @@ INCLUDEDIR = -I"src/"
 CXXFILES = $(shell find src -type f -name '*.cpp')
 OBJECTS  = $(CXXFILES:src/%.cpp=obj/%.o)
 
-all: dirs $(EXE) run
+all: dirs $(EXE)
 
 run: 
 	bin/./$(EXE)
