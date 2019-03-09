@@ -209,7 +209,7 @@ void Graphic::Windows::StaffClassManager() {
     subcomps[STAFF_WINDOW][STAFF_CLASS_WINDOW].drawEdges();
     refresh();
     std::vector < std::string>  &cur = comps[STAFF_CLASS_WINDOW];
-    cur = Staff::Class::getList();
+    cur = Staff::Classes::getClassList();
 
 }
 

@@ -86,6 +86,6 @@ vector <string> Staff::Classes::getClassList() {
 
 }
 
-vector <string> Staff::Classes::getStudentListOf() {
+vector <string> Staff::Classes::getStudentListOf(string classtmp) {
 
 }
